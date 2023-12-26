@@ -16,6 +16,7 @@ log
 *.str
 *.xo
 *.xsa
+*.hwdef
 *.xclbin
 *.pb
 *.jou
