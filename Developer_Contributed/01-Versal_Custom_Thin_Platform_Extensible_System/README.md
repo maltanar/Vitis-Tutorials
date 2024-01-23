@@ -629,7 +629,8 @@ Click on each item below to see the detailed Revision History:
  
  </details>
 
- <summary> May 2023 </summary>
+ <details>
+  <summary> May 2023 </summary>
   
  - AI Engine:
    - Replaced kernels and graphs to use AIE API and C++ Object Oriented Style with templates
