@@ -10,8 +10,8 @@ PLATFORM_CUSTOM ?= vck190_thin
 XPFM              := ../../xpfm_export/build/platform/${PLATFORM_CUSTOM}/export/${PLATFORM_CUSTOM}/${PLATFORM_CUSTOM}.xpfm
 
 
-KERNEL          := mm2s_vadd_s
-KERNEL_SRC      := ./src/${KERNEL}.cpp
+KERNEL          := finn_design
+KERNEL_SRC      := ./src/${KERNEL}.xo
 XO              := ../xo_hw/${KERNEL}.xo
 
 .PHONY: clean all help
@@ -26,12 +26,8 @@ help::
 
 all: ${XO}
 
-${XO}: ${KERNEL_SRC} ${XPFM}
-	v++ --compile --debug --save-temps \
-		--platform ${XPFM} \
-		--kernel   ${KERNEL} \
-		--output   ${XO} \
-		${KERNEL_SRC}
+${XO}: ${KERNEL_SRC}
+	cp ${KERNEL_SRC} ${XO}
 
 clean:
 	rm -f $(XO)* *.log

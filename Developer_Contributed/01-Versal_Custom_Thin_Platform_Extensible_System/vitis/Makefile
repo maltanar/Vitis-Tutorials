@@ -54,6 +54,8 @@ else
     SYSTEM_CFG := ./src/system.cfg
 endif
 
+DSP_FANOUT_HOOK := ./src/dsp_fanout.tcl
+
 .PHONY: clean all
 
 help::
@@ -69,14 +71,15 @@ ${BUILD_DIR}:
 
 link: ${BUILD_DIR} ${BUILD_DIR}/${XSA}
 
-${BUILD_DIR}/${XSA}: ${XO} ${GRAPH_O} ${SYSTEM_CFG}
+${BUILD_DIR}/${XSA}: ${XO} ${SYSTEM_CFG}
 	cd ${BUILD_DIR} && \
 		v++ --link --debug --save-temps \
 			--target ${TARGET} \
+			--optimize 3 \
+			--linkhook.do_first vpl.impl.opt_design,$(addprefix ../, ${DSP_FANOUT_HOOK}) \
 			--platform ../${XSA_PLATFORM} \
 			$(addprefix --config ../, ${SYSTEM_CFG}) \
 			$(addprefix ../, ${XO}) \
-			../${GRAPH_O} \
 			--output ${XSA} \
 			|& tee vpp_link.log
 

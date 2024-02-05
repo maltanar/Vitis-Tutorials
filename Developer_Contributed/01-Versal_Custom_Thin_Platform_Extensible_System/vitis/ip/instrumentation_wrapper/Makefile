@@ -9,8 +9,9 @@ PLATFORM_CUSTOM ?= vck190_thin
 
 XPFM              := ../../xpfm_export/build/platform/${PLATFORM_CUSTOM}/export/${PLATFORM_CUSTOM}/${PLATFORM_CUSTOM}.xpfm
 
-KERNEL          := vadd_mm
-KERNEL_SRC      := ./src/${KERNEL}.cl
+
+KERNEL          := instrumentation_wrapper
+KERNEL_SRC      := ./src/${KERNEL}.xo
 XO              := ../xo_hw/${KERNEL}.xo
 
 .PHONY: clean all help
@@ -18,19 +19,15 @@ XO              := ../xo_hw/${KERNEL}.xo
 help::
 	$(ECHO) "Makefile Usage:"
 	$(ECHO) "  make all"
-	$(ECHO) "      Command to generate the hls-vadd-kernel used in this design"
+	$(ECHO) "      Command to generate the hls-mm2s-kernel used in this design"
 	$(ECHO) ""
 	$(ECHO) "  make clean"
 	$(ECHO) "      Command to remove all the generated files."
 
 all: ${XO}
 
-${XO}: ${KERNEL_SRC} ${XPFM}
-	v++ --compile --debug --save-temps \
-		--platform ${XPFM} \
-		--kernel   ${KERNEL} \
-		--output   ${XO} \
-		${KERNEL_SRC}
+${XO}: ${KERNEL_SRC}
+	cp ${KERNEL_SRC} ${XO}
 
 clean:
 	rm -f $(XO)* *.log

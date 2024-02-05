@@ -7,20 +7,17 @@ ECHO             := @echo
 
 SYSROOT          := ../../../linux/sysroot/sysroots/cortexa72-cortexa53-xilinx-linux
 
-APP_NAME         := aie_dly_test
+APP_NAME         := finn_test
 APP_EXE          := ../exe/${APP_NAME}.exe
 APP_SRC          := ./src/${APP_NAME}.cpp
 APP_SRC_DEP      := ./src/*
-APP_SRC_CTRL     := ./../../../vitis/ip/aie/Work/ps/c_rts/aie_control_xrt.cpp
 
 GCC              ?= aarch64-linux-gnu-g++
 
 GCC_INCLUDES     := -I${SYSROOT}/usr/include \
                     -I${SYSROOT}/usr/include/xrt \
                     -I${SYSROOT}/usr/include/xaiengine \
-                    -I${XILINX_VITIS}/aietools/include \
-                    -I../../../vitis/ip/aie/src \
-                    -I../../../vitis/ip/aie/
+                    -I${XILINX_VITIS}/aietools/include
 
 GCC_C_FLAGS      := -O -Wall -std=c++17 -DXAIE_DEBUG \
                     -pthread \
@@ -28,7 +25,9 @@ GCC_C_FLAGS      := -O -Wall -std=c++17 -DXAIE_DEBUG \
 
 GCC_L_FLAGS      := -L$(SYSROOT)/usr/lib \
                     -L${XILINX_VITIS}/aietools/lib/aarch64.o \
-                    -ladf_api_xrt -lxaiengine -lxrt_core -lxrt_coreutil \
+                    -ladf_api_xrt \
+                    -lxrt_core \
+                    -lxrt_coreutil \
                     --sysroot=$(SYSROOT)
 
 .PHONY: clean help all

@@ -41,7 +41,7 @@ export BOARD_NAME                 := vck190
 ###########################################################
 
 # LINUX_TMP_DIR = Any dir which is not NFS
-export LINUX_TMP_DIR              := /tmp/${USER}/${REQUIRED_VERSION}/${BOARD_NAME}/${SW_BUILD_TOOL}
+export LINUX_TMP_DIR              := /scratch/users/${USER}/${REQUIRED_VERSION}/${BOARD_NAME}/${SW_BUILD_TOOL}
 
 # LINUX_YOCTO_ROOT = Directory where yocto tools are installed
 # Used ONLY when SW_BUILD_TOOL := yocto!
